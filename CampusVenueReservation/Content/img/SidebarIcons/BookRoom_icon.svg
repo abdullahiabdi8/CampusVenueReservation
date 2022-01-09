@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="144" height="144" viewBox="0 0 144 144">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.49"/>
+      <stop offset="0.499" stop-color="#fff" stop-opacity="0.031"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g id="manageestampdeed_icon" transform="translate(-953 -3970)">
+    <g id="Group_621" data-name="Group 621" transform="translate(110 -87)">
+      <rect id="Rectangle_1291" data-name="Rectangle 1291" width="144" height="144" rx="15" transform="translate(843 4057)" fill="#829eee"/>
+      <text id="Manage_eStamp_Deeds" data-name="Manage eStamp
+Deeds" transform="translate(916 4171)" fill="#fff" font-size="16" font-family="Raleway-Bold, Raleway" font-weight="700"><tspan x="-62.512" y="0">Manage Dimension</tspan><tspan x="-24.448" y="19"></tspan></text>
+      <rect id="Rectangle_1292" data-name="Rectangle 1292" width="138" height="138" rx="15" transform="translate(846 4060)" fill="url(#linear-gradient)"/>
+      <g id="paper" transform="translate(890.749 4081.858)">
+        <path id="Path_1829" data-name="Path 1829" d="M.109,57.957V112.8a1.055,1.055,0,0,0,1.055,1.055H41.244A1.055,1.055,0,0,0,42.3,112.8V68.5c0-.023-.011-.043-.013-.066a.994.994,0,0,0-.054-.271c-.012-.034-.02-.066-.035-.1a1.044,1.044,0,0,0-.211-.309L31.438,57.211a1.023,1.023,0,0,0-.31-.211.951.951,0,0,0-.1-.035,1.045,1.045,0,0,0-.273-.055c-.018,0-.039-.008-.061-.008H1.164A1.054,1.054,0,0,0,.109,57.957ZM38.7,67.45H31.751V60.5ZM2.219,59.012H29.642V68.5A1.055,1.055,0,0,0,30.7,69.559h9.493v42.189H2.219Zm0,0" transform="translate(0 -50.574)" fill="#fff"/>
+        <path id="Path_1830" data-name="Path 1830" d="M94.978,54.845v2.109h3.164A1.054,1.054,0,0,0,99.2,55.9V1.055A1.055,1.055,0,0,0,98.142,0H58.063a1.055,1.055,0,0,0-1.055,1.055V4.219h2.11V2.109h37.97V54.845Zm0,0" transform="translate(-50.57)" fill="#fff"/>
+        <path id="Path_1831" data-name="Path 1831" d="M75.977,189.668H101.29v2.109H75.977Zm0,0" transform="translate(-67.429 -168.573)" fill="#fff"/>
+        <path id="Path_1832" data-name="Path 1832" d="M75.977,132.766h8.438v2.11H75.977Zm0,0" transform="translate(-67.429 -118)" fill="#fff"/>
+        <path id="Path_1833" data-name="Path 1833" d="M75.977,246.566H92.852v2.11H75.977Zm0,0" transform="translate(-67.429 -219.143)" fill="#fff"/>
+        <path id="Path_1834" data-name="Path 1834" d="M246.676,246.566H253v2.11h-6.328Zm0,0" transform="translate(-219.144 -219.143)" fill="#fff"/>
+        <path id="Path_1835" data-name="Path 1835" d="M75.977,303.465H101.29v2.11H75.977Zm0,0" transform="translate(-67.429 -269.714)" fill="#fff"/>
+        <path id="Path_1836" data-name="Path 1836" d="M75.977,417.266H101.29v2.11H75.977Zm0,0" transform="translate(-67.429 -370.858)" fill="#fff"/>
+        <path id="Path_1837" data-name="Path 1837" d="M161.324,360.367h15.821v2.109H161.324Zm0,0" transform="translate(-143.285 -320.288)" fill="#fff"/>
+        <path id="Path_1838" data-name="Path 1838" d="M75.977,360.367H83.36v2.109H75.977Zm0,0" transform="translate(-67.429 -320.288)" fill="#fff"/>
+        <path id="Path_1839" data-name="Path 1839" d="M75.977,474.168H80.2v2.109H75.977Zm0,0" transform="translate(-67.429 -421.432)" fill="#fff"/>
+        <path id="Path_1840" data-name="Path 1840" d="M132.875,474.168H151.86v2.109H132.875Zm0,0" transform="translate(-118 -421.432)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

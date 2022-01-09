@@ -1,0 +1,553 @@
+﻿@model CampusVenueReservation.Models.ViewModels.DashboardDataViewmodel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .Recordtabs {
+        width: 24% !important;
+        float: left;
+        margin: 0px 0.5%;
+        height: 100%;
+    }
+
+    .nt-mg-b-30 {
+        margin-bottom: 30px;
+    }
+
+    .income-monthly {
+        background: linear-gradient(to left, #67b7dc 35%, #03a7fd 100%);
+        border-radius: 10px;
+        height: 100%;
+    }
+
+    .income-title {
+        padding: 15px 0px 0px 0px !important;
+        text-align: center;
+    }
+
+    .main-income-head {
+        position: relative;
+    }
+
+        .main-income-head h2 {
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: #fff;
+            margin: 0px;
+        }
+
+    .income-dashone-pro {
+        padding: 5px 20px;
+    }
+
+    .income-rate-total {
+        position: relative;
+    }
+
+    .price-adminpro-rate h3 {
+        text-align: center;
+    }
+
+    .counter {
+        font-size: 24px !important;
+        font-weight: bold !important;
+        color: #FFF !important;
+        margin-bottom: 15px !important;
+    }
+
+    .income-monthly2 {
+        background: linear-gradient(to left, #b0b6f5 13%, #6771dc 100%);
+        border-radius: 10px;
+        height: 100%;
+    }
+
+    .income-monthly3 {
+        background: linear-gradient(to left, #d5b5f3 35%, #a367dc 100%);
+        border-radius: 10px;
+        height: 100%;
+    }
+
+    .DevForGraph {
+        /*height: 75%;*/
+        width: 69%;
+        margin-bottom: 1%;
+        border-radius: 20px;
+        padding: 15px;
+        background: #f3f4f8;
+        float: left;
+    }
+
+    .headingDEvv {
+        height: 10%;
+    }
+
+    .lblTicketOverview {
+        margin: 5px 0px;
+        font-size: 18px;
+        color: #212121;
+    }
+
+    #chartdiv, #donutchart, #donutchart1 {
+        width: 100%;
+        height: 300px;
+    }
+
+    .DevTotalApp {
+        width: 30%;
+        margin-bottom: 1%;
+        border-radius: 20px;
+        padding: 15px;
+        background: #f3f4f8;
+        float: right;
+    }
+
+    .height20per {
+        height: 20%;
+        overflow: hidden;
+    }
+
+    table tbody tr:nth-child(even) {
+        background: #f5fdfe;
+    }
+
+    table tbody tr:nth-child(odd) {
+        background: #f3f7fa;
+    }
+
+    table {
+        border-bottom: 0px !important;
+        border-collapse: separate !important;
+        border-spacing: 0px 10px !important;
+    }
+
+        table tbody tr {
+            padding: 23px 7px 20px 15px;
+        }
+
+        table thead tr th {
+            background: #f2f6f9;
+            text-align: center !important;
+            color: #004890;
+            font-size: 18px !important;
+        }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="breadcome-area mg-b-30 small-dn pt-20">
+            <div class="Recordtabs">
+                <div class="income-dashone-total income-monthly nt-mg-b-30 res-mg-t-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>
+                                Total Requests
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter" id="TotalRecords">@Model.RequestCount.TotalRequest</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Recordtabs">
+                <div class="income-dashone-total income-monthly2 nt-mg-b-30 res-mg-t-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>
+                                Total Pending
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter" id="TotalInwardsRecords">@Model.RequestCount.Pending</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Recordtabs">
+                <div class="income-dashone-total income-monthly3 nt-mg-b-30 res-mg-t-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>
+                                Total Accepted
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter" id="TotalOutwardsRecords">@Model.RequestCount.Accepted</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="Recordtabs">
+                <div class="income-dashone-total income-monthly3 nt-mg-b-30 res-mg-t-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>
+                                Total Rejected
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter" id="TotalOutwardsRecords">@Model.RequestCount.Rejected</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="DevForGraph">
+            <div class="row headingDEvv">
+                <div class="col-md-9">
+                    <h2 class="lblTicketOverview">Applications Overview</h2>
+                </div>
+                <div class="col-md-3">
+                    <input class="form-control" id="Month" type="month" value="2021-12">
+                </div>
+            </div>
+            <div id="chartdiv"></div>
+        </div>
+        <div class="DevTotalApp">
+            <div class="row height20per">
+                <div class="col-md-12">
+                    <h2 class="lblTicketOverview">Overall Request</h2>
+                </div>
+            </div>
+            <div class="row" style="height:80%; overflow:hidden">
+                <div class="col-md-12 per100">
+                    <div id="donutchart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="DevForGraph" style="height: 360px !important;">
+            <div class="row headingDEvv">
+                <div class="col-md-9">
+                    <h2 class="lblTicketOverview">Recent Requests</h2>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="mytable" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Venue</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Requested To</th>
+                                <th>Status</th>
+                                <th>Requested By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.RequestList)
+                            {
+                                <tr>
+                                    <th>@item.PlaceID</th>
+                                    <th>@item.FromDate</th>
+                                    <th>@item.ToDate</th>
+                                    <th>@item.RequestedTo</th>
+                                    <th>@item.Status</th>
+                                    <th>@item.RequestedBy</th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="DevTotalApp">
+            <div class="row height20per">
+                <div class="col-md-12">
+                    <h2 class="lblTicketOverview">Today Request</h2>
+                </div>
+            </div>
+            <div class="row" style="height:80%; overflow:hidden">
+                <div class="col-md-12 per100">
+
+                    <div id="donutchart1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/Scripts/jquery-3.3.1.min.js"></script>
+@*<script src="~/Content/graph/core.js"></script>
+    <script src="/Content/graph/charts.js"></script>
+    <script src="/Content/graph/animated.js"></script>*@
+
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+
+<script>
+    $(document).ready(function () {
+        AMCharts();
+        DonutData();
+        DonutData1();
+    });
+
+    function AMCharts() {
+        am5.ready(function () {
+
+            // Create root element
+            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root = am5.Root.new("chartdiv");
+
+
+            // Set themes
+            // https://www.amcharts.com/docs/v5/concepts/themes/
+            root.setThemes([
+                am5themes_Animated.new(root)
+            ]);
+
+
+            // Create chart
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/
+            var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                panX: false,
+                panY: false,
+                wheelX: "panX",
+                wheelY: "zoomX",
+                layout: root.verticalLayout
+            }));
+
+
+            // Add legend
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+            var legend = chart.children.push(
+                am5.Legend.new(root, {
+                    centerX: am5.p50,
+                    x: am5.p50
+                })
+            );
+
+            var data = [{
+                "year": "2021",
+                "TotalRequest": @Model.RequestCount.TotalRequest,
+                "Pending": @Model.RequestCount.Pending,
+                "Accepted": @Model.RequestCount.Accepted,
+                "Rejected": @Model.RequestCount.Rejected,
+            }, {
+                "year": "2022",
+               "TotalRequest": @Model.RequestCount.TotalRequest,
+                "Pending": @Model.RequestCount.Pending,
+                "Accepted": @Model.RequestCount.Accepted,
+                "Rejected": @Model.RequestCount.Rejected,
+            }, {
+                "year": "2023",
+                "TotalRequest": @Model.RequestCount.TotalRequest,
+                "Pending": @Model.RequestCount.Pending,
+                "Accepted": @Model.RequestCount.Accepted,
+                "Rejected": @Model.RequestCount.Rejected,
+            }]
+
+
+            // Create axes
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                categoryField: "year",
+                renderer: am5xy.AxisRendererX.new(root, {
+                    cellStartLocation: 0.1,
+                    cellEndLocation: 0.9
+                }),
+                tooltip: am5.Tooltip.new(root, {})
+            }));
+
+            xAxis.data.setAll(data);
+
+            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                renderer: am5xy.AxisRendererY.new(root, {})
+            }));
+
+
+            // Add series
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+            function makeSeries(name, fieldName) {
+                var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                    name: name,
+                    xAxis: xAxis,
+                    yAxis: yAxis,
+                    valueYField: fieldName,
+                    categoryXField: "year"
+                }));
+
+                series.columns.template.setAll({
+                    tooltipText: "{name}, {categoryX}:{valueY}",
+                    width: am5.percent(90),
+                    tooltipY: 0
+                });
+
+                series.data.setAll(data);
+
+                // Make stuff animate on load
+                // https://www.amcharts.com/docs/v5/concepts/animations/
+                series.appear();
+
+                series.bullets.push(function () {
+                    return am5.Bullet.new(root, {
+                        locationY: 0,
+                        sprite: am5.Label.new(root, {
+                            text: "{valueY}",
+                            fill: root.interfaceColors.get("alternativeText"),
+                            centerY: 0,
+                            centerX: am5.p50,
+                            populateText: true
+                        })
+                    });
+                });
+
+                legend.data.push(series);
+            }
+
+            makeSeries("TotalRequest", "TotalRequest");
+            makeSeries("Pending", "Pending");
+            makeSeries("Accepted", "Accepted");
+            makeSeries("Rejected", "Rejected");
+
+
+            // Make stuff animate on load
+            // https://www.amcharts.com/docs/v5/concepts/animations/
+            chart.appear(1000, 100);
+
+        }); // end am5.ready()
+
+    }
+
+    function DonutData() {
+am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("donutchart");
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+var chart = root.container.children.push(
+  am5percent.PieChart.new(root, {
+    endAngle: 270
+  })
+);
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+var series = chart.series.push(
+  am5percent.PieSeries.new(root, {
+    valueField: "value",
+    categoryField: "category",
+    endAngle: 270
+  })
+);
+
+series.states.create("hidden", {
+  endAngle: -90
+});
+
+// Set data
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+series.data.setAll([{
+  category: "TotalRquest",
+  value: @Model.RequestCount.TotalRequest
+}, {
+  category: "Pending",
+  value: @Model.RequestCount.Pending
+}, {
+  category: "Accepted",
+  value:@Model.RequestCount.Accepted
+}, {
+  category: "Rejected",
+  value: @Model.RequestCount.Rejected
+},]);
+
+series.appear(1000, 100);
+
+}); // end am5.ready()
+    }
+    function DonutData1() {
+ am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("donutchart1");
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+var chart = root.container.children.push(
+  am5percent.PieChart.new(root, {
+    endAngle: 270
+  })
+);
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+var series = chart.series.push(
+  am5percent.PieSeries.new(root, {
+    valueField: "value",
+    categoryField: "category",
+    endAngle: 270
+  })
+);
+
+series.states.create("hidden", {
+  endAngle: -90
+});
+
+// Set data
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+series.data.setAll([{
+  category: "TotalRquest",
+  value: @Model.RequestCount.TodayTotalRequest
+}, {
+  category: "Pending",
+  value: @Model.RequestCount.TodayPending
+}, {
+  category: "Accepted",
+  value:@Model.RequestCount.TodayAccepted
+}, {
+  category: "Rejected",
+  value: @Model.RequestCount.TodayRejected
+},]);
+
+series.appear(1000, 100);
+
+});
+    }
+</script>
+
+

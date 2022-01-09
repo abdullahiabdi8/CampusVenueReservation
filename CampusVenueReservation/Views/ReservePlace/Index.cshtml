@@ -1,0 +1,505 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+}
+<style>
+    .form-control {
+        border-radius: 5px !important;
+        border: 1px solid #0a4e93;
+        box-shadow: none;
+    }
+
+    .modal-body label, .modal-body h2 {
+        color: #0a4e93 !important;
+    }
+
+    .modalh4 {
+        color: black !important;
+        margin: 0px 0px 5px 0px;
+        font-weight: bold;
+        text-align: left;
+        text-transform: uppercase;
+    }
+</style>
+<div class="row" id="container2">
+    <div class="form-horizontal">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <p style="color:blue;text-transform:uppercase;font-size:25px ; margin:0px !important"><b>Request For Venue</b></p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            @*<div class="form-group">
+                <label class="control-label col-md-3" style="text-align:left">Student</label>
+                <div class="col-md-9">
+                    @Html.DropDownList("ID", ViewBag.Student as SelectList, "Select Student", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "StudentID" })
+
+                </div>
+            </div>*@
+            <div class="form-group">
+                <label class="control-label col-md-3" style="text-align:left">Venue</label>
+                <div class="col-md-9">
+                    @Html.DropDownList("ID", ViewBag.Places as SelectList, "Select Place", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "PlaceID" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3" style="text-align:left">Request To</label>
+                <div class="col-md-9">
+                    @Html.DropDownList("ID", ViewBag.UserType as SelectList, "Select Role", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "RequestTo" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3" style="text-align:left">From</label>
+                <div class="col-md-9">
+                    <input type="datetime-local" class="form-control" id="FromDate" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3" style="text-align:left">To</label>
+                <div class="col-md-9">
+                    <input type="datetime-local" class="form-control" id="ToDate" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <input type="button" value="Submit" id="Submit" onclick="Submit()" style="margin-bottom:30px !important;" class="btn btn-info" />
+                    <button type="reset" id="reset1" style="margin-bottom:30px !important;" onclick="Reset()" class="btn btn-danger">Reset</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="control-label col-md-3" style="text-align:left">Student</label>
+            <div class="col-md-3">
+                @Html.DropDownList("ID", ViewBag.Student as SelectList, "Select Student", htmlAttributes: new {  @class = "form-control", style = "width: 100%;", @Id = "StudentID1", @onchange = "LoadTable()" })
+
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class="col-md-12">
+    <div class="row" style=" margin-top: 1rem;">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Reserved Venue's
+            </div>
+            <div class="panel-body">
+                <div class="tableDev">
+                    <table class="display responsive nowrap cell-border compact stripe table-hove" id="myTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>RequestedBy</th>
+                                <th>RequestTo</th>
+                                <th>Venue</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                    <div class="col-sm-12" id="AreaUnderTable" hidden>
+                        <div class="pull-right">
+                            <input type="hidden" name="LastRowId" id="LastRowId" />
+                            <input type="hidden" id="TotalRecord" />
+                            <input type="hidden" name="Direction" id="hdnDirection" value="" />
+                            <select id="pageSize" name="PageSize" class="form-control pull-left mr10" style="width:75px;">
+
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <div class="pull-left mt10 pagercustom" style="padding-top:6px;padding-left:19px">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="AddNew" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Request For Place</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-8">
+
+                            <span id="DivisionRegion" style="color:red;display:none"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>Student</label>
+                        </div>
+                        <div class="col-md-8">
+                            @Html.DropDownList("ID", ViewBag.Student as SelectList, "Select Student", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "StudentID" })
+
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>Place</label>
+                        </div>
+                        <div class="col-md-8">
+                            @Html.DropDownList("ID", ViewBag.Places as SelectList, "Select Place", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "PlaceID" })
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>Request To</label>
+                        </div>
+                        <div class="col-md-8">
+
+                            @Html.DropDownList("ID", ViewBag.UserType as SelectList, "Select Role", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "RequestTo"})
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>From</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" class="form-control" id="FromDate" />
+                            <span id="ExistName" style="color:red;display:none"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>To</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" class="form-control" id="ToDate" />
+                            <span id="ExistName" style="color:red;display:none"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 text-center">
+                            <input type="button" class="btn btnCancel" data-dismiss="modal" value="CANCEL" />
+                            <input type="button" class="btn btnCustom" id="btnSave" value="ADD" onclick="Submit();" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script src="~/Scripts/Datatables.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script>
+
+    function RedirecttoView() {
+        $("#AddNew").modal("show");
+    }
+
+    $(document).ready(function () {
+        LoadTable();
+    });
+
+
+    function Reset() {
+
+        $("#StudentID").val('');
+        $("#PlaceID").val('');
+         $("#FromDate").val('');
+        $("#ToDate").val('');
+          $("#RequestTo").val('');
+    }
+
+
+    function Submit() {
+        debugger
+        var StudentID = $("#StudentID").val();
+        var PlaceID = $("#PlaceID").val();
+        var FromDate = $("#FromDate").val();
+        var ToDate = $("#ToDate").val();
+        var RequestTo = $("#RequestTo").val();
+
+        $.ajax({
+            url: "/ReservePlace/ReservePlace",
+            type: "POST",
+            data: { StudentID: StudentID, PlaceID: PlaceID, FromDate: FromDate, ToDate: ToDate, RequestTo: RequestTo },
+            dataType: "JSON",
+            success: function (response) {
+                if (response.Status) {
+                    swal({
+                        title: "Request initiated Successfully!",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "#004890",
+                        confirmButtonText: "Confirm",
+                        closeOnConfirm: true,
+                        html: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {                      
+                            LoadTable();
+                        }
+                    });
+                }
+                else {
+
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong');
+                //$('#FinalReport img').hide();
+            }
+        });
+    }
+
+    function LoadTable() {
+        debugger
+        var search = $('#searchfield').val();
+        var StudentID = $("#StudentID1").val();
+        $('#pageSize').val("25");
+        $.ajax({
+            url: "/ReservePlace/GetRequestedplace",
+            type: "GET",
+
+            data: { SearchCriteria: search, StudentID: StudentID },
+            dataType: "JSON",
+            success: function (response) {
+                if (response.Status) {
+
+                    GetRecords(response.Data);
+                    $('#LastRowId').val(response.LastRowID);
+                    $('#PageSize').val(response.PageSize);
+                    $('#TotalRecord').val(response.TotalRecord);
+                    $('#AreaUnderTable').removeAttr("hidden");
+                    pagination(response);
+                }
+                else {
+                    $('#myTable').DataTable().destroy();
+                    $('#myTable tbody').empty();
+                    $('#myTable').DataTable();
+                    $('#AreaUnderTable').attr("hidden", "true");
+                    $('.pagercustom #DynamicRecord').empty();
+                    //alert("No Record Found");
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong');
+                //$('#FinalReport img').hide();
+            }
+        });
+
+    }
+
+    function ChangePage(direction) {
+        ;
+        var search = $('#searchfield').val();
+        var LastRowID = $('#LastRowId').val();
+        var PageSize = $('#pageSize').val();
+        $.ajax({
+            type: 'GET',
+            url: "/ReservePlace/GetRequestedplace",
+            data: { LastRowId: LastRowID, PageSize: PageSize, Direction: direction, SearchCriteria: search },
+            //contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (response) {
+
+                if (response.Status) {
+                    GetRecords(response.Data);
+                    $('.pagercustom #DynamicRecord').empty();
+                    $('#LastRowId').val(response.LastRowID);
+                    //$('#PageSize').val(response.PageSize);
+                    $('#TotalRecord').val(response.TotalRecord);
+                    $('#AreaUnderTable').removeAttr("hidden");
+
+
+                    pagination(response);
+
+                } else {
+                    $('#myTable').DataTable().destroy();
+                    $('#myTable tbody').empty();
+                    $('#myTable').DataTable();
+                    $('#AreaUnderTable').attr("hidden", "true");
+                    $('.pagercustom #DynamicRecord').empty();
+                    //alert("No Record Found");
+
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong ');
+            }
+        });
+    }
+    $("#pageSize").change(function () {
+        var pagesize = $("#pageSize").val();
+        ChangePage(0);
+    });
+
+    function GetRecords(response) {
+        debugger
+        if (response.length != 0) {
+
+            table = $('#myTable').DataTable({
+                "aLengthMenu": [[25, 50, 75, 100], [25, 50, 75, 100]],
+                "pagingType": "simple",
+                dom: 'rt',
+                searching: false,
+                'destroy': true,
+                "aaSorting": [],
+                data: response,
+                pageLength: 100,
+                "responsive": true,
+                "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                    $(nRow).attr('ID', aData.ID);
+                },
+                "columnDefs": [{ orderable: false, targets: -1 }],
+
+
+                "columns": [
+                    {
+                        "data": "RequestedBy",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.RequestedBy == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + row.RequestedBy + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "RequestedTo",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.RequestedTo == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + row.RequestedTo + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "PlaceID",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.PlaceID == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + row.PlaceID + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "FromDate",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.FromDate == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + moment(row.FromDate).format('DD/MM/YYYY') + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "ToDate",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+
+                            return '<span>' + moment(row.ToDate).format('DD/MM/YYYY') + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "Status",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+
+                            return '<span>' + row.Status + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "Remarks",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+
+                            return '<span>' + row.RemarkID + '</span>';
+
+                        }
+
+                    },
+                ]
+                //"lengthChange": false
+            });
+        }
+        else {
+            if (table != null) {
+                $("#myTable tbody tr").remove();
+            }
+        }
+    }
+
+
+    function pagination(response) {
+        $('.pagercustom').html('');
+        var cal = parseInt((parseInt(response.Count) + parseInt(response.LastRowID)));
+        var dynamicdiv = '<div id="DynamicRecord"><span>Showing records' + (response.LastRowID + 1) + '-' + cal + ' of ' + response.TotalRecord + ' </span> ' +
+            ' <span class="pink"> ';
+        if (response.LastRowID > 0) {
+            dynamicdiv += ' <a href="javascript:ChangePage(-1)" class="cursorPointer active pink">Prev</a>';
+        } else {
+            dynamicdiv += ' <span class="">Prev</span>';
+        }
+        dynamicdiv += " | ";
+        if (response.TotalRecord > 0 && response.TotalRecord > (response.LastRowID + response.Count)) {
+
+            dynamicdiv += ' <a href="javascript:ChangePage(1)" class="cursorPointer active pink">Next</a>';
+        } else {
+            dynamicdiv += ' <span class="cursorPointer">Next</span>';
+
+        }
+        dynamicdiv += ' </span >';
+
+        $('.pagercustom').append(dynamicdiv);
+    }
+</script>

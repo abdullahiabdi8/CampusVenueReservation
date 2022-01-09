@@ -1,0 +1,354 @@
+
+
+
+
+
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #3964dc;
+    font-family: 'Raleway' !important;
+    height: 100vh;
+}
+
+.signin_dev{
+    height: 100%;
+}
+
+.Login_sidebar {
+    background-color: #004890;
+    height: 100vh;
+    color: #fff;
+}
+
+.project_heading{
+    font-weight: bold;
+    text-align: center;
+    font-size:28px;
+    margin: 1rem 0;
+}
+
+.side_bar_Img{
+    margin: 30px 0px;
+}
+
+.side_bar_Img .carousel-indicators li{
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+}
+
+.side_bar_Img .carousel-indicators{
+    bottom: -35px !important;
+}
+
+.sidebar_bottom_text h3{
+   font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.dont_have_account{
+    padding: 20px 15px;
+    text-align: right;
+}
+.dont_have_account .lnk_dnt_account{
+    color: #fff;
+    font-family: 'segoe-ui-regular';
+    margin-right: 15px;
+    -webkit-transition: 0.5s; /* Safari prior 6.1 */
+    transition: 0.5s;
+}
+.dont_have_account .lnk_dnt_account:hover{
+    color: #ddd;
+    text-decoration: none;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s; /* Safari prior 6.1 */
+    transition: 0.5s;
+}
+.dont_have_account .btn_getstarted{
+    color: #1c3053;
+    background: #fff;
+    border-radius: 0px;
+    margin-left: 15px;
+    border: 1px solid #fff;
+    padding: 10px 25px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s; /* Safari prior 6.1 */
+    transition: 0.5s;
+}
+.dont_have_account .btn_getstarted:hover{
+    color: #fff;
+    background: #1c3053;
+    border-radius: 0px;
+    border: 1px solid #fff;
+    -webkit-transition: 0.5s; /* Safari prior 6.1 */
+    transition: 0.5s;
+}
+.content_signin{
+    width: 40%;
+    padding: 65px 40px;
+    margin: auto;
+    margin-top: 10%;
+    border: 1px solid #86a0eb;
+    -webkit-box-shadow: 0px 0px 19px 3px rgba(57,100,220,1);
+    -moz-box-shadow: 0px 0px 19px 3px rgba(57,100,220,1);
+    box-shadow: 0px 0px 10px 1px rgb(167, 187, 243);
+}
+.content_signin h1{
+    text-align: center;
+    font-weight: 900;
+}
+.signin_form{
+    margin-top: 20%;
+}
+
+.remembr{
+    color: #83a2f9;
+    font-size: 12px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    letter-spacing: 1px;
+}
+
+.border_light{
+        border-bottom: 1px solid #eee !important;
+}
+
+.signin_form .form-control{
+    padding: .75rem .75rem;
+    border-radius: 0px;
+    font-size: 16px;
+    width: 85%;
+    float: right;
+    letter-spacing: 5px;
+    border: 1px solid #fff;
+    border-left: 0px;
+}
+.signin_form i{
+    font-family: FontAwesome;
+    width: 15%;
+    font-size: 18px;
+    padding: 1.034rem .75rem;
+    color: #a9a7a7;
+    background: white;
+    border: 0px;
+    text-align: center;
+}
+.lnk_forget{
+    color: #83a2f9;
+    font-size: 12px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    letter-spacing: 1px;
+}
+.lnk_forget:hover{
+    color: #3964dc;
+    text-decoration: none;
+    -webkit-transition: 0.5s; /* Safari prior 6.1 */
+    transition: 0.5s;
+}
+.btn_signin{
+    color: #3964dc;
+    background: #fff;
+    border-radius: 20px;
+    font-weight: 600;
+    border: 2px solid #3964dc;
+    padding: 5px 30px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.btn_signin:hover{
+    color: #fff;
+    background: #3964dc;
+    border-radius: 20px;
+    font-weight: 600;
+    border: 2px solid #3964dc;
+    padding: 5px 30px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.btn_backsignin{
+    color: #fff;
+    background: #1c3053;
+    border-radius: 0px;
+    border: 1px solid #fff;
+    padding: 5px 30px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.btn_backsignin:hover{
+    color: #1c3053;
+    background: #fff;
+    border-radius: 0px;
+    border: 1px solid #fff;
+    padding: 5px 30px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.content_forget{
+    width: 40%;
+    padding: 13% 40px;
+    margin: auto;
+}
+.signin_form p{
+    font-size: 12px;
+}
+.content_forget .signin_form i{
+    padding: 1.07rem .75rem !important;
+}
+.width_hundred{
+    width: 100%;
+}
+.main_dev{
+    padding: 15px;
+}
+.ach_body{
+    margin-top: 10px;
+}
+.ach_body p{
+    font-size: 16px;
+    margin-bottom: 1.7rem;
+    font-family: 'segoe-ui-regular';
+    text-align: justify;
+}
+.panel-body{
+    background-color: #fff;
+    color: #000;
+    padding: 40px 35px;
+    box-shadow: 0 0 0 2px rgb(255,255,255), 0.3em 0.3em 1em rgba(0,0,0,0.7);
+}
+.font-12{
+    font-size: 12px !important;
+}
+.ach_submit_form label{
+    color: #1c3053;
+    font-family: 'seguisb';
+    font-size: 15px
+}
+.ach_submit_form input[type="text"],input[type="Date"]{
+    border-radius: 0px !important;
+    font-size: 14px;
+    border-color: #1c3053;
+}
+.btn_achsend{
+    color: #1c3053;
+    background: #fff;
+    border-radius: 0px;
+    border: 1px solid #1c3053;
+    padding: 5px 30px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.btn_achsend:hover{
+    color: #fff;
+    background: #1c3053;
+    border-radius: 0px;
+    border: 1px solid #fff;
+    padding: 5px 30px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.createadmin_form_heading h1{
+    font-family: 'seguibl';
+}
+.createadmin_form_body{
+    margin-top: 3%;   
+}
+.createadmin_form_body img{
+    width: 85%;
+    padding: 75px 40px;
+    margin: auto;
+}
+.createadmin_form_body .panel-default{
+    width: 80%;
+    padding: 15px 40px;
+    margin: auto;
+}
+.create_admin_form label{
+    color: #1c3053;
+    font-family: 'seguisb';
+    font-size: 15px
+}
+.create_admin_form input[type="text"],input[type="Date"],select{
+    border-radius: 0px !important;
+    font-size: 14px !important;
+    border-color: #1c3053 !important;
+}
+.create_admin_form h4{
+    font-family: 'seguisb';
+    color: #1c3053;
+    margin-bottom: 8%;
+}
+.mt-35{
+    margin-top: 35px;
+}
+.btn_create{
+    color: #fff;
+    background: #1c3053;
+    border-radius: 0px;
+    border: 1px solid #1c3053;
+    padding: 5px 35px;
+    font-size: 18px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.btn_create:hover{
+    color: #1c3053;
+    background: #fff;
+    border-radius: 0px;
+    border: 1px solid #1c3053;
+    padding: 5px 35px;
+    font-size: 18px;
+    font-family: 'segoe-ui-regular';
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+@media (max-width: 768px) {
+    .dont_have_account .lnk_dnt_account{
+        margin-right: 0px !important;
+        margin-bottom: 5px;
+    }
+    .content_signin{
+        width: 100% !important;
+            padding: 65px 10px;
+    }
+    .btn_signin{
+        margin-bottom: 10px;
+    }
+    .content_forget{
+        width: 100% !important;
+        padding: 65px 10px;
+        margin: auto;
+    }
+    .content_signin h1{
+        font-size: 30px !important;    
+    }
+    .signin_form i{
+        padding: 1.049rem .75rem;
+    }
+    .createadmin_form_heading h1{
+        font-size: 34px !important;
+    }
+    .createadmin_form_body img {
+        padding: 25px !important;
+        margin: auto !important;
+    }
+    .createadmin_form_body .panel-default {
+        width: 100% !important;
+        padding: 0px !important;
+        margin: auto;
+    }
+}

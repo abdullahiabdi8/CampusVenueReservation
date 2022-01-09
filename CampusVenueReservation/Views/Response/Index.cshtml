@@ -1,0 +1,510 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="control-label col-md-3" style="text-align:left">Student</label>
+            <div class="col-md-3">
+                @Html.DropDownList("ID", ViewBag.Student as SelectList, "Select Student", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "StudentID1", @onchange = "LoadTable()" })
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="row" style="margin-top:1rem;">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Reserved Venue's Request
+            </div>
+            <div class="panel-body">
+                <div class="tableDev">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>RequestedBy</th>
+                                <th>RequestTo</th>
+                                <th>Venue</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                    <div class="col-sm-12" id="AreaUnderTable" hidden>
+                        <div class="pull-right">
+                            <input type="hidden" name="LastRowId" id="LastRowId" />
+                            <input type="hidden" id="TotalRecord" />
+                            <input type="hidden" name="Direction" id="hdnDirection" value="" />
+                            <select id="pageSize" name="PageSize" class="form-control pull-left mr10" style="width:75px;">
+
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <div class="pull-left mt10 pagercustom" style="padding-top:6px;padding-left:19px">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="RID" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="AddNew" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Remarks</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>Reason</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea class="form-control" rows="3" id="RespoRemarks"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row form-group">
+                        <div class="col-md-12 text-center">
+                            <input type="button" class="btn btn-danger" data-dismiss="modal" value="Reject" onclick="Reject()" />
+                            <input type="button" class="btn btn-primary" id="btnSave" value="Accept" onclick="Remarks()" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function RedirecttoView() {
+        $("#AddNew").modal("show");
+    }
+
+    $(document).ready(function () {
+        LoadTable();
+    });
+
+    function Submit() {
+        debugger
+        var Name = $("#Name").val();
+        var Capacity = $("#Capacity").val();
+        var Costs = $("#Costs").val();
+
+        $.ajax({
+            url: "/Venue/Create",
+            type: "POST",
+            data: { Name: Name, Capacity: Capacity, Costs: Costs },
+            dataType: "JSON",
+            success: function (response) {
+                if (response.Status) {
+                    swal({
+                        title: "Data Inserted Successfully!",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "#004890",
+                        confirmButtonText: "Confirm",
+                        closeOnConfirm: false,
+                        html: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            $("#AddNew").modal("hide");
+                            LoadTable();
+                        }
+                    });
+                }
+                else {
+                    swal("Internet Issue Please Try Again! ");
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong');
+                //$('#FinalReport img').hide();
+            }
+        });
+    }
+
+    function LoadTable() {
+
+        var search = $('#searchfield').val();
+        var StudentID = $("#StudentID1").val();
+
+        $('#pageSize').val("25");
+        $.ajax({
+            url: "/Response/GetResponseplace",
+            type: "GET",
+
+            data: { SearchCriteria: search, StudentID: StudentID },
+            dataType: "JSON",
+            success: function (response) {
+                if (response.Status) {
+
+                    GetRecords(response.Data);
+                    $('#LastRowId').val(response.LastRowID);
+                    $('#PageSize').val(response.PageSize);
+                    $('#TotalRecord').val(response.TotalRecord);
+                    $('#AreaUnderTable').removeAttr("hidden");
+                    pagination(response);
+                }
+                else {
+                    $('#myTable').DataTable().destroy();
+                    $('#myTable tbody').empty();
+                    $('#myTable').DataTable();
+                    $('#AreaUnderTable').attr("hidden", "true");
+                    $('.pagercustom #DynamicRecord').empty();
+                    //alert("No Record Found");
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong');
+                //$('#FinalReport img').hide();
+            }
+        });
+
+    }
+
+    function ChangePage(direction) {
+
+        var search = $('#searchfield').val();
+        var LastRowID = $('#LastRowId').val();
+        var PageSize = $('#pageSize').val();
+        $.ajax({
+            type: 'GET',
+            url: "/Response/GetResponseplace",
+            data: { LastRowId: LastRowID, PageSize: PageSize, Direction: direction, SearchCriteria: search },
+            //contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (response) {
+
+                if (response.Status) {
+                    GetRecords(response.Data);
+                    $('.pagercustom #DynamicRecord').empty();
+                    $('#LastRowId').val(response.LastRowID);
+                    //$('#PageSize').val(response.PageSize);
+                    $('#TotalRecord').val(response.TotalRecord);
+                    $('#AreaUnderTable').removeAttr("hidden");
+
+
+                    pagination(response);
+
+                } else {
+                    $('#myTable').DataTable().destroy();
+                    $('#myTable tbody').empty();
+                    $('#myTable').DataTable();
+                    $('#AreaUnderTable').attr("hidden", "true");
+                    $('.pagercustom #DynamicRecord').empty();
+                    //alert("No Record Found");
+
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong ');
+            }
+        });
+    }
+    $("#pageSize").change(function () {
+        var pagesize = $("#pageSize").val();
+        ChangePage(0);
+    });
+
+    function GetRecords(response) {
+        debugger
+        if (response.length != 0) {
+
+            table = $('#myTable').DataTable({
+                "aLengthMenu": [[25, 50, 75, 100], [25, 50, 75, 100]],
+                "pagingType": "simple",
+                dom: 'rt',
+                searching: false,
+                'destroy': true,
+                "aaSorting": [],
+                data: response,
+                pageLength: 100,
+                "responsive": true,
+                "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                    $(nRow).attr('ID', aData.ID);
+                },
+                "columnDefs": [{ orderable: false, targets: -1 }],
+
+
+                "columns": [
+                    {
+                        "data": "RequestedBy",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.RequestedBy == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + row.RequestedBy + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "RequestedTo",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.RequestedTo == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + row.RequestedTo + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "PlaceID",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.PlaceID == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + row.PlaceID + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "FromDate",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+                            if (row.FromDate == null) {
+                                return '<span> N/A </span>';
+                            }
+                            return '<span>' + moment(row.FromDate).format('DD/MM/YYYY') + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "ToDate",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+
+                            return '<span>' + moment(row.ToDate).format('DD/MM/YYYY') + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "Status",
+                        "class": "text-justify",
+                        "width": "auto",
+                        "render": function (data, type, row) {
+
+                            return '<span>' + row.Status + '</span>';
+
+                        }
+
+                    },
+                    {
+                        "data": "ID",//data=id
+                        "class": "background",
+                        "render": function (data, type, row) {
+                            if (row.Status == "Accepted") {
+                                return '<span> Request is already  ' + row.Status + '</span>';
+                            } else if (row.Status == "Rejected") {
+                                return '<span> Request is already ' + row.Status + '</span>';
+                            }
+                            else {
+                                //return '<td><a onclick=ResponseRemarks(' + row.ID + ') class="fa fa-check-square"></a> | <a onclick=DltUser(' + row.ID + ') class="fa fa-trash"></a></td>';
+                                return '<td><button onclick=ResponseRemarks(' + row.ID + ') class="btn btn-primary">Take Action</button></td>';
+
+                            }
+
+
+
+                        }
+                    }
+                ]
+                //"lengthChange": false
+            });
+        }
+        else {
+            if (table != null) {
+                $("#myTable tbody tr").remove();
+            }
+        }
+    }
+
+
+    function pagination(response) {
+        $('.pagercustom').html('');
+        var cal = parseInt((parseInt(response.Count) + parseInt(response.LastRowID)));
+        var dynamicdiv = '<div id="DynamicRecord"><span>Showing records' + (response.LastRowID + 1) + '-' + cal + ' of ' + response.TotalRecord + ' </span> ' +
+            ' <span class="pink"> ';
+        if (response.LastRowID > 0) {
+            dynamicdiv += ' <a href="javascript:ChangePage(-1)" class="cursorPointer active pink">Prev</a>';
+        } else {
+            dynamicdiv += ' <span class="">Prev</span>';
+        }
+        dynamicdiv += " | ";
+        if (response.TotalRecord > 0 && response.TotalRecord > (response.LastRowID + response.Count)) {
+
+            dynamicdiv += ' <a href="javascript:ChangePage(1)" class="cursorPointer active pink">Next</a>';
+        } else {
+            dynamicdiv += ' <span class="cursorPointer">Next</span>';
+
+        }
+        dynamicdiv += ' </span >';
+
+        $('.pagercustom').append(dynamicdiv);
+    }
+
+
+    function Remarks() {
+        debugger
+        var Remarks = $("#RespoRemarks").val();
+        var ID = $("#RID").val();
+
+        $.ajax({
+            url: "/Response/Remarks",
+            type: "POST",
+            data: { ID: ID, Remarks: Remarks, Status: 2 },
+            dataType: "JSON",
+            success: function (response) {
+                if (response.Status) {
+                    $("#AddNew").modal("hide");
+                }
+                else {
+                    swal("Internet Issue Please Try Again! ");
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong');
+                //$('#FinalReport img').hide();
+            }
+        });
+    }
+    function Reject() {
+        debugger
+        var Remarks = $("#RespoRemarks").val();
+        var ID = $("#RID").val();
+
+        $.ajax({
+            url: "/Response/Remarks",
+            type: "POST",
+            data: { ID: ID, Remarks: Remarks, Status: 3 },
+            dataType: "JSON",
+            success: function (response) {
+                if (response.Status) {
+                    $("#AddNew").modal("hide");
+                }
+                else {
+                    swal("Internet Issue Please Try Again! ");
+                }
+            },
+            error: function (result) {
+                alert('Something Went Wrong');
+                //$('#FinalReport img').hide();
+            }
+        });
+    }
+
+    function ResponseRemarks(ID) {
+
+        $("#RID").val(ID);
+
+        $("#AddNew").modal("show");
+
+    }
+
+
+    function DltUser(ID) {
+        swal({
+            title: "Are you sure you want to delete the record?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#004890",
+            confirmButtonText: "Confirm",
+            closeOnConfirm: false,
+            html: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: 'GET',
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/Venue/Delete",
+                    dataType: 'json',
+                    data: { ID: ID },
+                    success: function (response) {
+                        if (response.Status) {
+                            //swal({
+                            //    title: "User deleted successfully",
+                            //    type: "success",
+                            //    showCancelButton: false,
+                            //    confirmButtonColor: "#DD6B55",
+                            //    confirmButtonText: "OK",
+                            //    closeOnConfirm: true
+                            //},
+                            //    function (isConfirm) {
+                            //        LoadTable();
+                            //    })
+                            swal('District deleted successfully');
+                            LoadTable();
+                            //swal({
+                            //    title: response.msg,
+                            //    type: "success",
+                            //    showCancelButton: false,
+                            //    confirmButtonColor: "#DD6B55",
+                            //    confirmButtonText: "OK",
+                            //    closeOnConfirm: true
+                            //}, function (isConfirm) {
+                            //        if (isConfirm) {
+                            //            LoadTable();
+                            //    }
+                            //})
+                        }
+                        else {
+                            swal({
+                                title: response.msg,
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "OK",
+                                closeOnConfirm: true
+                            }, function (isConfirm) {
+                                if (isConfirm) {
+                                }
+                            })
+                        }
+                    },
+                    error: function (response) {
+                        alert("Something Went Wrong Please Try Again Letter....!");
+                    }
+                });
+            }
+        })
+    }
+
+
+</script>
+

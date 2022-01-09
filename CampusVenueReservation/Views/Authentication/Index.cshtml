@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "Signup";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from mobirise.com/html-templates/landing-page/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 13:22:58 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- /Added by HTTrack -->
+<head>
+    <!-- Site made with Mobirise Website Builder v4.6.4, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v4.6.4, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="description" content="HTML Landing Page Templates Free Website Builder. Download Now!">
+    <link rel="stylesheet" href="~/Content/css/mobirise-icons.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="~/Content/css/SignIn-Style.css"> <!-- Font Awesome -->
+    <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+</head>
+
+<body>
+    <section class="signin_dev">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 Login_sidebar">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="project_heading">Campus Venue Reservation System</h2>
+                        </div>
+                    </div>
+                    <div class="side_bar_Img">
+                        <div id="demo" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ul class="carousel-indicators">
+                                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                                <li data-target="#demo" data-slide-to="1"></li>
+                                <li data-target="#demo" data-slide-to="2"></li>
+                            </ul>
+
+                            <!-- The slideshow -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="~/Content/img/Assets/Login.svg" width="100%">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="~/Content/img/Assets/Login.svg" width="100%">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="~/Content/img/Assets/Login.svg" width="100%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar_bottom_text">
+                        <h3>Collection of Halls , Auditoriums and Cafes</h3>
+                    </div>
+                    <div class="sidebar_bottom_text">
+                        @* <img src="~/Content/ProjectPrint/companymain.jpg" style="width:100%;height:23%" />*@
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="content_signin">
+                        <h1>Sign Up</h1>
+                        <div class="form-group border_light">
+                            <i class="fa fa-user"></i>
+                            <input type="text" id="Username" class="form-control usrName" placeholder="Username" required="" />
+                        </div>
+                        <div class="form-group border_light">
+                            <i class="fa fa-email"></i>
+                            <input type="Email" id="Email" class="form-control passwrd" placeholder="Email" required="" autocomplete="off" />
+                        </div>
+                        <div class="form-group border_light">
+                            <i class="fa fa-email"></i>
+                            <input type="text" id="Phone" class="form-control passwrd" placeholder="Phone" required="" autocomplete="off" />
+                        </div>
+                        <div class="form-group border_light">
+                            <i class="fa fa-email"></i>
+                            @Html.DropDownList("ID", ViewBag.UserType as SelectList, "Select Role", htmlAttributes: new { @class = "form-control", style = "width: 100%;", @Id = "UserType" })
+                        </div>
+
+                        <div class="form-group border_light">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" id="password" class="form-control passwrd" placeholder="Password" required="" autocomplete="off" />
+                        </div>
+                        <div class="form-group border_light">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" id="Cpassword" class="form-control passwrd" placeholder="Confirm Password" required="" autocomplete="off" />
+                        </div>
+
+                        @*<div class="form-group row">
+                            <div class="col-md-12 text-right">
+                                <a href="../Authentication/Login" class="lnk_forget">Login?</a>
+                            </div>
+                        </div>*@
+                    <div class="form-group text-right">
+                        <input type="button" style="background-color: #e9695b;color:white" value="Home" onclick="RedirecttoHome()" class="btn btn-default" />
+
+                        <input type="button" id="submit" value="Login" onclick="RedirecttoLogin()" class="btn btn-primary" />
+                        <input type="button" id="submit" value="Sign Up" onclick="Signup()" class="btn btn-success" />
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i></i></a></div>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+</body>
+</html>
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/popper.min.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script src="~/Content/js/mbr-booking-datepicker.min.js"></script>
+<script src="~/Content/js/smooth-scroll.js"></script>
+<script src="~/Content/js/jquery.touch-swipe.min.js"></script>
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/SweetAlert/sweetalert-dev.js"></script>
+<script src="~/Scripts/SweetAlert/sweetalert.min.js"></script>
+<script>
+
+    function RedirecttoLogin() {
+        window.location.href = "../Authentication/Login";
+    }
+    function RedirecttoHome() {
+        window.location.href = "../Authentication/LandingPage";
+    }
+
+    $(document).keypress(function (e) {
+
+        if (e.keyCode === 13 && $("#buttonLogin").is(":visible")) {
+            login();
+        }
+
+    })
+
+    function Signup() {
+        debugger
+        var username = $("#Username").val();
+        var Email = $("#Email").val();
+        var Cpassword = $("#Cpassword").val();
+        var password = $("#password").val();
+        var Phone = $("#Phone").val();
+        var UserType = $("#UserType").val();
+
+        $.ajax({
+            url: '/Authentication/CreateUser',
+            type: "POST",
+            dataType: "JSON",
+            data: { UserName: username, Password: password, Email: Email, Cpassword: Cpassword, Phone: Phone, UserType: UserType },
+            success: function (response) {
+                if (response.Status) {
+                    alert(response.msg);
+                    //swal(response.msg);
+                    location.reload();
+                }
+                else {
+                    console.log(response.msg);
+                    swal(response.ResponseText);
+                    //alert(response.ResponseText);
+                }
+            }
+        });
+    }
+</script>

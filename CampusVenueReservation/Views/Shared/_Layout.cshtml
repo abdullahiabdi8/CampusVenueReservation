@@ -1,0 +1,206 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en" style="overflow-x:hidden">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Campus Venue Reservation System | @ViewBag.Title </title>
+    <link href="~/build/css/Avenir.css" rel="stylesheet" />
+    <link href="~/Content/datatable/jquery.dataTables.min.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="~/Content/AdminAssets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
+
+    <link href="~/Content/sweetalert/sweetalert.min.css" rel="stylesheet" />
+    <script src="~/Content/sweetalert/sweetalert.min.js"></script>
+
+
+    <script src="~/Content/datatable/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/datatable/jquery.dataTables.min.js"></script>
+
+    <script src="~/Content/datatable/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <link href="~/Content/datatable/responsive.dataTables.min.css" rel="stylesheet" />
+
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <!-- /menu profile quick info -->
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print">
+                        <div class="menu_section">
+                            <h3>General</h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a href="/DashBoard/Index"><i class="fa fa-home"></i>Dashboard</a>
+                                    <ul class="nav child_menu"></ul>
+                                </li>
+                                @if (Session["UserType"].ToString() != "4")
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "UserManagement")"><i class="fa fa-users"></i> Manage Users</a>
+                                        <ul class="nav child_menu"></ul>
+                                    </li>
+                                }
+                                <li>
+                                    <a href="@Url.Action("ChangePassword", "Authentication")"><i class="fa fa-users"></i> Change Password</a>
+                                    <ul class="nav child_menu"></ul>
+                                </li>
+                                @if (Session["UserType"].ToString() != "4")
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "Venue")"><i class="fa fa-map-marker"></i>&nbsp; Venue Management</a>
+                                    </li>
+                                }
+                                @if (Session["UserType"].ToString() == "4")
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "ReservePlace")"><i class="fa fa-map-marker"></i>&nbsp; Reserve Venue</a>
+                                    </li>
+                                }
+                                    @if (Session["UserType"].ToString() != "4")
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "Response")"><i class="fa fa-map-marker"></i>&nbsp; Reserved Venue`s Request</a>
+                                        </li>
+                                    }
+                                </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+
+                        @Html.AntiForgeryToken()
+                        <a data-toggle="tooltip" data-placement="top" style="float:right" title="Logout" onclick="Logout()">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu" style="margin-top:-8px;">
+                    <div class="row">
+                       
+                        <nav>
+                            <div class="col-md-4">
+                                <a href="/Authentication/LandingPage">
+                                    <div style="padding:0 !important;float:left;width:230px;" align="right">
+                                        <img src="~/Content/Assests/Logo.png" alt="..." style="height:80px;width:230px" />
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-5">
+                                <label style="font-size:20px;margin-left:100px;margin-top:25px;color:#0a4e93 !important">Campus Venue Reservation System</label>
+                            </div>
+
+                            @*<div style="padding:0 !important;float:right;width:230px;" align="right">
+            <img src="~/Content/images/Logowh.png" alt="..." style="height:80px;width:230px" />
+        </div>*@                
+                        <div class="col-md-2" style=" margin-top: 1rem;">
+                            <ul class="nav navbar-nav ml-auto pt-3">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle"
+                                       data-toggle="dropdown" aria-expanded="false">
+                                        <span><b>@Session["UserName"]</b></span>
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+
+                                        <li><a href="#" class="a-color" onclick="Logout()"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+                        </nav>
+                      
+                    </div>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main" style="min-height:800px;">
+                <div class="">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+
+                                <div class="x_content">
+                                    @*@Html.Partial("_NotificationPanel")*@
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    4-VisionSolution <a href="http://4visionsolutions.com/">4VisionSolution</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="~/Content/AdminAssets/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    @*<script src="~/vendors/nprogress/nprogress.js"></script>*@
+    <!-- Custom Theme Scripts -->
+    <script src="~/build/js/custom.js"></script>
+
+</body>
+</html>
+
+<script>
+
+
+    function Logout() {
+        $.ajax({
+            url: '/Authentication/Logout',
+            type: "POST",
+            dataType: "JSON",
+            success: function (response) {
+                if (response.Status) {
+
+                    window.location.href = "/Authentication/Login";
+
+                }
+                else {
+                    console.log(response.msg);
+                    swal(response.ResponseText);
+                    //alert(response.ResponseText);
+                }
+            }
+        });
+    }
+
+</script>
